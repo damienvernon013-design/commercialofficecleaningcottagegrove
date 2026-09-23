@@ -28,6 +28,7 @@
     <li><a href="/our-process/">Our Process</a></li>
     <li><a href="/insured-and-bonded/">Insured &amp; Bonded</a></li>
     <li><a href="/faq/">FAQ</a></li>
+    <li><a href="/blog/">Blog</a></li>
     <li><a href="/request-a-quote/">Get a Quote</a></li>
   </ul></nav>
 </header>
@@ -36,47 +37,16 @@
 <h1>Request a Free Cleaning Quote in Cottage Grove</h1>
 <p>Fill in the form below. We review every submission the next business day and call you during business hours to confirm details. There is no obligation to proceed, and we do not share your information.</p>
 <div class="hours-note" style="background:#fce8df;padding:10px 14px;border-left:3px solid #e85c2a;margin-bottom:20px;font-size:14px;">Our office is open Mon&ndash;Fri 8:30am&ndash;5:00pm CT. Submissions received after hours will receive a callback the following business day.</div>
-<form id="quote-form" style="max-width:640px;" method="post" novalidate>
-  <div class="form-row">
-    <input type="text" name="name" placeholder="Your name" required>
-    <input type="tel" name="phone" placeholder="Best phone number" required>
+<form data-quote-wizard novalidate style="max-width:640px;">
+  <div data-wizard-progress></div>
+  <div data-wizard-steps></div>
+  <p data-wizard-status role="status" aria-live="polite"></p>
+  <div data-wizard-nav class="wiz-nav">
+    <button type="button" data-wizard-back hidden>Back</button>
+    <button type="button" data-wizard-next class="btn-primary">Next</button>
   </div>
-  <div class="form-row">
-    <input type="email" name="email" placeholder="Email address">
-    <input type="text" name="company" placeholder="Company or facility name">
-  </div>
-  <div class="form-row">
-    <input type="text" name="city" placeholder="City (e.g. Cottage Grove, Woodbury)">
-    <input type="text" name="sqft" placeholder="Approximate square footage">
-  </div>
-  <div class="form-row">
-    <select name="type">
-      <option value="">Facility type</option>
-      <option>Professional office</option>
-      <option>Medical or dental office</option>
-      <option>Multi-tenant building</option>
-      <option>Retail or service business</option>
-      <option>Light industrial</option>
-      <option>Other</option>
-    </select>
-    <select name="frequency">
-      <option value="">Cleaning frequency</option>
-      <option>Nightly (5x/week)</option>
-      <option>3x per week</option>
-      <option>Weekly</option>
-      <option>Bi-weekly</option>
-      <option>Not sure yet</option>
-    </select>
-  </div>
-  <div class="form-row">
-    <textarea name="notes" placeholder="Anything we should know: floor types, after-hours access, specific cleaning requirements, current issues with your existing service..."></textarea>
-  </div>
-  <input type="hidden" name="utm_source">
-  <p class="form-note">We will not add you to a marketing list or share your information. We call during business hours only.</p>
-  <p id="quote-form-status" role="status" aria-live="polite" style="display:none;margin-bottom:14px;font-size:14px;"></p>
-  <button type="submit" class="btn-primary">Send My Quote Request</button>
 </form>
-<script src="/quote-form.js" defer></script>
+<script src="/assets/js/quote-wizard.js" defer></script>
 <h2 style="margin-top:40px;">What Your Quote Will Include</h2>
 <p>After the initial callback, we schedule a site walkthrough for any account over approximately 2,000 square feet. Following the walkthrough, we provide a written scope of work and a fixed per-visit price. The scope details exactly what gets cleaned, at what frequency, and by what method. There are no open-ended "as-needed" line items that inflate the invoice.</p>
 <p>If the quote doesn't work for your budget, we'll tell you what scope changes would bring it to a range that does. We don't negotiate by degrading quality &mdash; we adjust scope transparently.</p>
@@ -105,6 +75,7 @@
           <li><a href="/our-process/">Our Process</a></li>
           <li><a href="/pricing/">Pricing</a></li>
           <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/blog/">Blog</a></li>
           <li><a href="/contact/">Contact</a></li>
           <li><a href="/request-a-quote/">Get a Quote</a></li>
         </ul>
@@ -126,6 +97,7 @@
     <div class="footer-bottom">
       <span>&copy; 2025 Cottage Grove Office Cleaning. 22 years serving the south metro.</span>
       <span><a href="mailto:ops@thequotemasters.com">ops@thequotemasters.com</a></span>
+      <span>Built and Maintained by <a href="https://infin8content.com/" target="_blank" rel="noopener">Infin8Content</a></span>
     </div>
   </div>
 </footer>

@@ -316,6 +316,84 @@ tr:nth-child(even) td { background: #f0eeeb; }
 .faq-item h3 { font-family: var(--font-head); font-size: 15px; color: var(--primary); margin-bottom: 10px; }
 .faq-item p { color: var(--text-muted); font-size: 14px; }
 
+/* ── QUOTE WIZARD ────────────────────────── */
+.wiz-progress { margin-bottom: 24px; }
+.wiz-progress-bar { height: 6px; background: var(--border); overflow: hidden; }
+.wiz-progress-fill { display: block; height: 100%; background: var(--accent); transition: width 0.2s ease; }
+.wiz-progress-label { font-size: 13px; color: var(--text-muted); margin-top: 8px; }
+
+.wiz-fieldset { border: none; padding: 0; margin: 0; }
+.wiz-legend { font-family: var(--font-head); font-size: 19px; color: var(--primary); margin-bottom: 8px; padding: 0; }
+.wiz-hint { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; }
+
+.wiz-options { display: grid; gap: 10px; }
+.wiz-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  background: var(--white);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.wiz-option:hover { border-color: var(--accent); }
+.wiz-option.is-selected { border-color: var(--accent); background: var(--accent-light); }
+.wiz-option-input { margin-top: 3px; flex-shrink: 0; }
+.wiz-option-label { font-size: 15px; color: var(--text); }
+
+.wiz-slot { border: 1px solid var(--border); background: var(--white); padding: 18px 20px; margin-bottom: 16px; }
+.wiz-slot-title { font-family: var(--font-head); font-size: 15px; color: var(--primary); margin-bottom: 12px; }
+.wiz-slot-grid { display: flex; gap: 16px; flex-wrap: wrap; }
+.wiz-slot-grid .form-row { flex: 1 1 200px; display: flex; flex-direction: column; gap: 6px; margin-bottom: 0; }
+.wiz-slot-grid label { font-size: 13px; color: var(--text-muted); font-weight: bold; }
+.wiz-slot-grid input, .wiz-slot-grid select {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  font-family: var(--font-body);
+  font-size: 15px;
+  background: var(--white);
+  color: var(--text);
+}
+
+.wiz-review-heading { font-family: var(--font-head); font-size: 19px; color: var(--primary); margin-bottom: 16px; }
+.wiz-review-card { border: 1px solid var(--border); background: var(--white); padding: 20px; margin-bottom: 16px; }
+.wiz-review-card h4 { font-family: var(--font-head); font-size: 14px; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+.wiz-review-list { display: grid; grid-template-columns: minmax(140px, 200px) 1fr; gap: 8px 16px; }
+.wiz-review-list dt { font-size: 13px; color: var(--text-muted); font-weight: bold; }
+.wiz-review-list dd { font-size: 14px; color: var(--text); }
+
+.wiz-terms { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text-muted); margin: 16px 0; cursor: pointer; }
+.wiz-terms input { margin-top: 3px; }
+
+.wiz-nav { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 24px; }
+.wiz-nav button { font-family: var(--font-head); font-size: 15px; padding: 13px 28px; border: none; cursor: pointer; border-radius: 0; }
+.wiz-nav button[data-wizard-next] { background: var(--accent); color: var(--white); margin-left: auto; }
+.wiz-nav button[data-wizard-next]:hover { background: #c94d20; }
+.wiz-nav button[data-wizard-next]:disabled { background: var(--border); cursor: not-allowed; }
+.wiz-nav button[data-wizard-back] { background: transparent; color: var(--primary); border: 2px solid var(--border); }
+.wiz-nav button[data-wizard-back]:hover { border-color: var(--primary); }
+
+.wiz-done { text-align: center; padding: 40px 20px; }
+.wiz-done h2 { font-family: var(--font-head); font-size: 24px; color: var(--primary); margin-bottom: 12px; }
+.wiz-done p { color: var(--text-muted); margin-bottom: 16px; }
+.wiz-done-list { list-style: none; max-width: 420px; margin: 0 auto 20px; text-align: left; }
+.wiz-done-list li { padding: 10px 16px; border: 1px solid var(--border); background: var(--white); margin-bottom: 8px; font-size: 14px; }
+
+.form-status-error { color: #c0392b; font-size: 14px; margin-bottom: 14px; }
+.form-status-success { color: #1e7e34; font-size: 14px; margin-bottom: 14px; }
+
+/* ── LEAD TEASER ────────────────────────── */
+.lead-teaser { display: flex; gap: 10px; flex-wrap: wrap; max-width: 700px; }
+.lead-teaser input { flex: 1 1 160px; padding: 11px 14px; border: 1px solid var(--border); font-family: var(--font-body); font-size: 15px; background: var(--white); color: var(--text); border-radius: 0; }
+.lead-teaser button { flex: 0 0 auto; }
+
+@media (max-width: 600px) {
+  .wiz-review-list { grid-template-columns: 1fr; }
+  .wiz-nav { flex-direction: column-reverse; align-items: stretch; }
+  .wiz-nav button[data-wizard-next] { margin-left: 0; }
+}
+
 /* ── RESPONSIVE ────────────────────────── */
 @media (max-width: 600px) {
   .header-top { flex-direction: column; align-items: flex-start; }

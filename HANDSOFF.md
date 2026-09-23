@@ -1,63 +1,85 @@
 # Handoff — commercialofficecleaningcottagegrove.com
 
-Status: **READY TO LAUNCH**
+Status: **READY TO LAUNCH** (pending live wizard click-through, see below)
 
 ## What's in this repo
 
-Static 43-page HTML microsite, no build step, no framework. Deployed to
+Static 68-page HTML microsite, no build step, no framework. Deployed to
 Vercel from repo root. See `CLAUDE.md` for structure details and `QA.md` for
-the full content/compliance audit (addresses, phone, insurance language,
-pricing, town facts, schema, sitemap — all PASS).
+the original content/compliance audit (addresses, phone, insurance language,
+pricing, town facts, schema — all PASS as of the original 43-page build).
 
-## What was done in this session
+## What was done in this session (blog + CRM quote wizard build)
 
-1. **Contact form wired to the CRM.** Both quote forms (homepage and
-   `/request-a-quote/`) previously submitted with `GET` to `/` or
-   `/request-a-quote/` and did nothing with the data. They now `POST` via
-   `fetch` (`quote-form.js`) to a new Vercel serverless function,
-   `api/contact.js`, which validates the input and forwards it server-side to
-   the CRM-QM `PushLead` API
-   (`https://thequotemasters.com/crm_api/api.php?action=push_lead`) using the
-   bearer token from `CRM_API_TOKEN`. The token is never present in any
-   client-side file or in git history.
-2. **UTM tracking added.** `utm.js` is included on all 43 pages. It captures
-   `utm_source`/`utm_medium`/`utm_campaign`/`utm_term`/`utm_content` from the
-   landing URL, persists them in `sessionStorage` for the session, and fills
-   a hidden `utm_source` field on both quote forms so attribution survives
-   multi-page browsing before the form is submitted. The combined value
-   (`source / medium / campaign`) is sent as the CRM's `utm_source` field.
-3. **Placeholder/secret sweep.** Searched the full repo for `{{ }}` tokens,
-   `TODO`/`PLACEHOLDER`/`lorem ipsum`, and the CRM bearer token string —
-   none found in any tracked file. `.gitignore` and `.env.example` added so
-   a real token can never be committed by accident.
-4. **No testing was run** (per instruction) — this was a wiring/content pass,
-   not a QA pass. See "Before going live" below for what to verify manually
-   once deployed.
+1. **CRM quote wizard added, old flow retired.** The site's original
+   single-step lead form (`api/contact.js` + `quote-form.js`, posting to
+   `/api/contact`) has been fully removed. In its place:
+   - `assets/js/quote-wizard.js` — a multi-step wizard covering the CRM's
+     real questionnaire (cleaning frequency, current situation, service
+     rating, timing preference, number of companies to meet), weekday
+     appointment booking (2+ days out, same-day slots spaced ≥90 minutes
+     apart), and a review/confirm step.
+   - `api/submit-lead.js` — new serverless function, validates and forwards
+     the wizard payload to the CRM-QM `PushLead` API. `ZIP_DEFAULT` is
+     `55016`, `ADDRESS_DEFAULT` is `Cottage Grove, MN`, CORS is locked to
+     `https://commercialofficecleaningcottagegrove.com`. Uses the same
+     `CRM_API_TOKEN` env var as before — no new secret to configure.
+   - `/request-a-quote/` now renders the full wizard scaffold.
+   - The home page now has a short teaser form (name/phone/sqft) that
+     GET-submits to `/request-a-quote/` and prefills step 1 of the wizard.
+   - Wizard-specific CSS added to `styles.css`.
+2. **Blog section added.** `/blog/` — 24 posts + hub page, rewritten from a
+   portfolio content pack for this site's brand, phone, and facility scope.
+   Three posts that were originally restaurant/gym/school-specific were
+   reframed as general facility-hygiene guidance rather than direct service
+   claims, since those verticals aren't in this site's quoted facility
+   types. Nav (`Blog` link) and `sitemap.xml` updated across all pages.
+3. **Footer credit line added.** Every page's footer now ends with "Built
+   and Maintained by Infin8Content," linked to https://infin8content.com/
+   (opens in a new tab).
+4. **Pre-existing bug fixed.** 13 pages (5 `/resources/*` + 8
+   `/service-areas/*`) shipped a literal `{CALLOUT}` placeholder token in
+   production HTML from an earlier build pass — QA.md had claimed zero
+   template tokens sitewide. Replaced with the actual callout markup on
+   all 13 pages.
+5. **Verification run this session:** `node --check` passes on both new JS
+   files; all six `data-wizard-*` scaffold hooks confirmed present on
+   `/request-a-quote/`; zero remaining references to the old
+   `api/contact`/`quote-form.js` flow anywhere in the repo; every internal
+   link in every new blog post resolves to a real file; `sitemap.xml` is
+   valid XML with a URL count (68) matching the actual page count (68); no
+   fabricated pricing or cross-portfolio links in the new blog content.
+6. **No browser testing was run** — the wizard has been verified structurally
+   (scaffold hooks, JS syntax, local static serving) but not click-tested
+   against the live CRM in a real browser. See "Before going live" below.
 
 ## Required action before the form actually works in production
 
-**Add the `CRM_API_TOKEN` environment variable in the Vercel project
-dashboard** (Project Settings → Environment Variables), for both Production
-and Preview environments. Value is the bearer token from the CRM-QM API
-documentation provided out of band — do not paste it into this repo. This
-step could not be done from here (no Vercel CLI / dashboard access in this
-session).
+`CRM_API_TOKEN` should already be set in the Vercel project (Production +
+Preview) from the prior session — `api/submit-lead.js` reads the same env
+var name as the old `api/contact.js` did. No new secret needs to be added.
+If it was never set, both the old and new flow would fail identically with
+a 500 "Server not configured" response.
 
-## Before going live (manual checks, since no CLI/testing was done here)
+## Before going live (manual checks — not done from here)
 
-- [ ] Set `CRM_API_TOKEN` in Vercel (see above) — without it, `/api/contact`
-      returns a 500 and both forms will show "Server is not configured."
-- [ ] Submit a real test lead through the live `/request-a-quote/` form and
-      confirm it appears in the CRM.
-- [ ] Confirm the homepage mini quote form submits successfully too.
-- [ ] Load a page with `?utm_source=test&utm_medium=email` in the URL, click
-      through to `/request-a-quote/`, and confirm the hidden `utm_source`
-      field is populated before submit.
-- [ ] Spot-check a few pages on mobile widths (page uses a single shared
-      `styles.css` with existing responsive rules — nothing new added there).
+- [ ] Click through the full wizard on a Vercel preview deploy in a real
+      browser: all steps, a real appointment date/time, and a real
+      submission reaching the CRM. This is the one step the Playbook this
+      build followed explicitly calls out as non-optional and it was not
+      possible to do from this session (no browser tool available here).
+- [ ] Confirm the home-page teaser form correctly hands off to
+      `/request-a-quote/` and prefills name/phone/sqft.
+- [ ] Load a page with `?utm_source=test&utm_medium=email`, click through
+      to `/request-a-quote/`, and confirm the wizard's `utmSource` value on
+      submit reflects it.
+- [ ] Spot-check `/blog/` and a few post pages on mobile widths.
+- [ ] Confirm `/blog/` and a couple of posts render correctly and the
+      "Built and Maintained by Infin8Content" footer line appears on both
+      old and new pages.
 
 ## Repo / deploy
 
 - Git remote: `origin` → `https://github.com/damienvernon013-design/commercialofficecleaningcottagegrove.git`
-- Vercel project is already connected to this GitHub repo per client
-  instruction — no `vercel` CLI commands were run from this session.
+- Vercel project is already connected to this GitHub repo — pushing to
+  `main` triggers a deploy, no `vercel` CLI needed.

@@ -48,6 +48,7 @@
       <li><a href="/our-process/">Our Process</a></li>
       <li><a href="/insured-and-bonded/">Insured &amp; Bonded</a></li>
       <li><a href="/faq/">FAQ</a></li>
+      <li><a href="/blog/">Blog</a></li>
       <li><a href="/request-a-quote/">Get a Quote</a></li>
     </ul>
   </nav>
@@ -67,36 +68,14 @@
 <section class="quote-form-section">
   <div style="max-width:900px;margin:0 auto;">
     <h2>Get Your Free Office Cleaning Quote</h2>
-    <p>Fill in your facility details and we'll respond the next business day with a written quote — no obligation, no sales pressure.</p>
+    <p>Tell us your name, phone number, and approximate square footage — we'll take you to the full request form to finish booking a walkthrough.</p>
     <div class="hours-note">Our office is open Mon&ndash;Fri 8:30am&ndash;5:00pm. Submissions received after hours will receive a callback the following business day.</div>
-    <form id="quote-form" class="quote-form" method="post" novalidate>
-      <div class="form-row">
-        <input type="text" name="name" placeholder="Your name" required>
-        <input type="tel" name="phone" placeholder="Best phone number" required>
-      </div>
-      <div class="form-row">
-        <input type="email" name="email" placeholder="Email address" required>
-        <input type="text" name="city" placeholder="City (e.g. Cottage Grove)" required>
-      </div>
-      <div class="form-row">
-        <input type="text" name="sqft" placeholder="Approx. square footage">
-        <select name="frequency">
-          <option value="">Cleaning frequency</option>
-          <option>Nightly (5x/week)</option>
-          <option>3x per week</option>
-          <option>Weekly</option>
-          <option>Not sure yet</option>
-        </select>
-      </div>
-      <div class="form-row">
-        <textarea name="notes" placeholder="Anything we should know about your space (floor type, after-hours access, specific areas, etc.)"></textarea>
-      </div>
-      <input type="hidden" name="utm_source">
-      <p class="form-note">We do not share your information. We will call during business hours only.</p>
-      <p id="quote-form-status" role="status" aria-live="polite" style="display:none;margin-bottom:14px;font-size:14px;"></p>
-      <button type="submit" class="btn-primary">Send My Quote Request</button>
+    <form data-lead-teaser class="lead-teaser" action="/request-a-quote/" method="get">
+      <input type="text" name="name" placeholder="Your name" required>
+      <input type="tel" name="phone" placeholder="Best phone number" required>
+      <input type="text" name="sqft" placeholder="Approx. square footage">
+      <button type="submit" class="btn-primary">Get My Quote</button>
     </form>
-    <script src="/quote-form.js" defer></script>
   </div>
 </section>
 
@@ -176,6 +155,7 @@
           <li><a href="/why-choose-us/">Why Choose Us</a></li>
           <li><a href="/pricing/">Pricing</a></li>
           <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/blog/">Blog</a></li>
           <li><a href="/contact/">Contact</a></li>
           <li><a href="/request-a-quote/">Get a Quote</a></li>
         </ul>
@@ -197,6 +177,7 @@
     <div class="footer-bottom">
       <span>&copy; 2025 Cottage Grove Office Cleaning. 22 years serving the south metro.</span>
       <span><a href="mailto:ops@thequotemasters.com">ops@thequotemasters.com</a></span>
+      <span>Built and Maintained by <a href="https://infin8content.com/" target="_blank" rel="noopener">Infin8Content</a></span>
     </div>
   </div>
 </footer>
